@@ -1,0 +1,72 @@
+Select DropUDFTypeCascadeIfExists('sps_publication_panel_list');
+
+
+CREATE TYPE "public"."udf_sps_publication_panel_list" AS (
+  "publication_key" INTEGER,
+  "title" VARCHAR(100),
+  "description" VARCHAR(7000),
+  "flag_line" INTEGER,
+  "create_date" DATE,
+  "create_user_key" INTEGER,
+  "user_name_publ" VARCHAR(100),
+  "document_and_link_key" INTEGER,
+  "name" VARCHAR(100),
+  "file_name" VARCHAR(100),
+  "type" INTEGER,
+  "flag_active" INTEGER,
+  "size" INTEGER,
+  "recorder_date" DATE,
+  "recorder_user_key" INTEGER,
+  "user_name_doc" VARCHAR(100)
+);
+
+CREATE OR REPLACE FUNCTION "public"."sps_publication_panel_list" (integer) RETURNS SETOF "public"."udf_sps_publication_panel_list" AS'
+DECLARE
+
+pi_intOrganizationKey ALIAS FOR $1;
+
+
+v_retval udf_sps_publication_panel_list%ROWTYPE;
+
+BEGIN
+
+
+FOR v_retval IN
+
+Select
+    "PUBL"."PUBLICATION_KEY",
+    "PUBL"."TITLE",
+    "PUBL"."DESCRIPTION",
+    "PUBL"."FLAG_LINE",
+    "PUBL"."CREATE_DATE",
+    "PUBL"."CREATE_USER_KEY",
+    coalesce("USRINF1"."FIRST_NAME",'''') || '' '' || coalesce("USRINF1"."LAST_NAME",'''') as "USER_NAME_PUBL",
+    "DOCU"."DOCUMENT_AND_LINK_KEY",
+    "DOCU"."NAME",
+    "DOCU"."FILE_NAME",
+    "DOCU"."TYPE",
+    "DOCU"."FLAG_ACTIVE",
+    "DOCU"."SIZE",
+    "DOCU"."RECORDER_DATE",
+    "DOCU"."RECORDER_USER_KEY",
+    coalesce("USRINF2"."FIRST_NAME",'''') || '' '' || coalesce("USRINF2"."LAST_NAME",'''') as "USER_NAME_DOC"    	
+from
+    "PUBLICATION" "PUBL"
+    Left join "DOCUMENT_AND_LINK" "DOCU"
+    ON "PUBL"."PUBLICATION_KEY" = "DOCU"."PUBLICATION_KEY"
+	Left join "USER_INFO" "USRINF1"
+	ON "PUBL"."CREATE_USER_KEY" = "USRINF1"."USER_KEY"
+	Left join "USER_INFO" "USRINF2"
+	ON "DOCU"."RECORDER_USER_KEY" = "USRINF2"."USER_KEY"
+WHERE "PUBL"."ORGANIZATION_KEY" = pi_intOrganizationKey AND
+      "PUBL"."STATUS" = 1
+ORDER BY "POSITION", "DOCU"."TYPE"
+
+LOOP
+  RETURN NEXT v_retval;
+END LOOP;
+
+RETURN;
+
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;

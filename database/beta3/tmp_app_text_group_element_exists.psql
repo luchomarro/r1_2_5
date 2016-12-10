@@ -1,0 +1,39 @@
+
+-- SELECT * FROM "APP_TEXT_ELEMENT" WHERE "APP_TEXT_ID" = 29 ORDER BY "APP_TEXT_ELEMENT_ID"
+
+CREATE OR REPLACE FUNCTION "public"."tmp_app_text_group" (int4, int4, int4, text) RETURNS "pg_catalog"."void" AS'
+DECLARE
+
+p_intOrganizationKey ALIAS FOR $1;
+p_intapptextid ALIAS FOR $2;
+p_intNewElement ALIAS FOR $3;
+p_vchComment ALIAS FOR $4;
+
+c_intTableID int;
+
+v_intapptextelemkey int;
+
+BEGIN
+
+c_intTableID = 8;
+
+INSERT INTO "APP_TEXT_ELEMENT"("APP_TEXT_ID","APP_TEXT_ELEMENT_ID","ORGANIZATION_KEY","COMMENT")
+VALUES(p_intapptextid, p_intNewElement, p_intOrganizationKey, p_vchComment);
+
+v_intapptextelemkey = currval(''"APP_TEXT_ELEMENT_APP_TEXT_ELEMENT_KEY_seq"'');
+
+INSERT INTO "TEXT"("TABLE_ID","ELEMENT_KEY","LANGUAGE_ID","CONTENT_TEXT","HAS_AUDIO")
+VALUES(c_intTableID,v_intapptextelemkey, 1, ''El Elemento ya existe en la lista'', 0);
+
+INSERT INTO "TEXT"("TABLE_ID","ELEMENT_KEY","LANGUAGE_ID","CONTENT_TEXT","HAS_AUDIO")
+VALUES(c_intTableID,v_intapptextelemkey, 2, ''The element already exists in the list'', 0);
+
+RETURN;
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;	
+
+-- texto de Mensaje para pagina de Grupos - Id del grupo.
+Select "tmp_app_text_group"(27, 29, 21, 'Grupos: Agregar / Editar' );
+
+drop FUNCTION "public"."tmp_app_text_group" (int4, int4, int4, text);
+

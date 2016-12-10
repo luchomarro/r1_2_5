@@ -1,0 +1,57 @@
+Select DropUDFTypeCascadeIfExists('sps_document_list');
+
+CREATE TYPE "public"."udf_sps_document_list" AS (
+  "document_and_link_key" INTEGER,
+  "publication_key" INTEGER,
+  "documentid" INTEGER,
+  "name" VARCHAR(100),
+  "file_name" VARCHAR(100),
+  "type" INTEGER,
+  "flag_active" INTEGER,
+  "size" INTEGER,
+  "recorder_date" DATE,
+  "recorder_user_key" INTEGER,
+  "user_name" VARCHAR(100)
+);
+
+CREATE OR REPLACE FUNCTION "public"."sps_document_list" (integer) RETURNS SETOF "public"."udf_sps_document_list" AS'
+DECLARE
+
+pi_intPublicationKey ALIAS FOR $1;
+
+
+v_retval udf_sps_document_list%ROWTYPE;
+
+BEGIN
+
+
+FOR v_retval IN
+
+Select
+	"DOC"."DOCUMENT_AND_LINK_KEY",
+	"DOC"."PUBLICATION_KEY",
+	"DOC"."DOCUMENT_AND_LINK_ID",
+	"DOC"."NAME",
+	"DOC"."FILE_NAME",
+	"DOC"."TYPE",
+	"DOC"."FLAG_ACTIVE",
+	"DOC"."SIZE",
+	"DOC"."RECORDER_DATE",
+	"DOC"."RECORDER_USER_KEY",
+    coalesce("USRINF"."FIRST_NAME",'''') || '' '' || coalesce("USRINF"."LAST_NAME",'''') as "USER_NAME"	
+from
+	"DOCUMENT_AND_LINK" "DOC"
+	Left join "USER_INFO" "USRINF"
+	ON "DOC"."RECORDER_USER_KEY" = "USRINF"."USER_KEY"
+where
+	"DOC"."PUBLICATION_KEY" = pi_intPublicationKey
+Order by
+	"DOC"."DOCUMENT_AND_LINK_KEY" asc
+LOOP
+  RETURN NEXT v_retval;
+END LOOP;
+
+RETURN;
+
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;

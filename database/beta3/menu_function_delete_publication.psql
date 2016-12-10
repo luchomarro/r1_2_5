@@ -1,0 +1,45 @@
+CREATE OR REPLACE FUNCTION public.tmp_sps_insert_menu_function_delete_publication()
+  RETURNS void AS
+'
+
+DECLARE
+v_intMenuKey int4;
+
+c_Menu_Function_Id int4;
+c_PARENT_MENU_KEY int4;
+c_MENU_SET_KEY int4;
+c_PROFILE_KEY int4;
+
+BEGIN
+--** Modificar segun la aplicacion
+c_PARENT_MENU_KEY = 1241;
+c_PROFILE_KEY = 39;
+--** -------------
+
+c_MENU_SET_KEY = 11;
+
+
+--** Delete Publication
+c_Menu_Function_Id = 260;
+
+Insert INTO "MENU_FUNCTION" ("MENU_FUNCTION_ID", "DEVICE_ID", "LINK", "TYPE_FUNCTION","USE_FUNCTION","COMMENT")
+VALUES(260,1,''No'',1,3,''Delete Publications'');
+
+INSERT INTO "MENU" ("MENU_SET_KEY", "MENU_FUNCTION_ID", "PARENT_MENU_KEY", "SEQUENCE" )
+VALUES(c_MENU_SET_KEY, c_Menu_Function_Id, c_PARENT_MENU_KEY, 1);
+SELECT currval(\'"MENU_MENU_KEY_seq"\') INTO v_intMenuKey;
+
+INSERT INTO "PROFILE_MENU" ("PROFILE_KEY","MENU_KEY")
+VALUES(c_PROFILE_KEY, v_intMenuKey);
+
+
+
+RETURN;
+END
+'
+  LANGUAGE 'plpgsql' VOLATILE;
+
+
+select tmp_sps_insert_menu_function_delete_publication();
+
+DROP FUNCTION public.tmp_sps_insert_menu_function_delete_publication();

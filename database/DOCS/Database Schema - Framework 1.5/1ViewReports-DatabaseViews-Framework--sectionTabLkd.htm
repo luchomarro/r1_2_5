@@ -1,0 +1,576 @@
+<HTML>
+<HEAD>
+<TITLE>
+Computer Associates's Report Template Builder - Database Schema - Framework 1.5 Document
+</TITLE>
+</HEAD>
+<P>
+<TABLE CELLPADING=1 BORDER=0 WIDTH=100%>
+<TR>
+<TD VALIGN=TOP BGCOLOR=#9E9ECF>
+<B><FONT SIZE=2 FACE=Arial>FORMATS:</FONT></B>
+</TD>
+<TD VALIGN=TOP BGCOLOR=#9E9ECF>
+<B><FONT SIZE=2 FACE=Arial><A HREF=1ViewReports-DatabaseViews-Framework--sectionTabLkd.htm>TABULAR</A></FONT></B>
+</TD>
+<TD VALIGN=TOP BGCOLOR=#9E9ECF>
+<B><FONT SIZE=2 FACE=Arial><A HREF=1ViewReports-DatabaseViews-Framework--sectionLS.htm>HIERARCHICAL</A></FONT></B>
+</TD>
+</TR>
+</TABLE>
+</P>
+<TABLE CELLPADING=1 BORDER=0 WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP>
+<FONT SIZE=2 COLOR=#800000 FACE='Times New Roman'></FONT></TD>
+</TR>
+</TABLE>
+<TABLE CELLPADING=1 BORDER=2 WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffaa>
+<B><FONT SIZE=4 COLOR=#000000 FACE='Times New Roman'>View Reports-Database Views - Framework -.-</FONT></B></TD>
+</TR>
+</TABLE>
+<TABLE CELLPADING=1 BORDER=2 WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ff9d9d>
+<B><FONT SIZE=3 COLOR=#000000 FACE='Times New Roman'>View</FONT></B></TD>
+</TR>
+</TABLE><TABLE CELLPADING=2 BORDER=2 WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#64b1ff WIDTH=400>
+<B><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Name</FONT></B></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#64b1ff WIDTH=400>
+<B><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Comment</FONT></B></TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_apptext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las configuraciones de los textos que usan las aplicaciones. Para ello usa los campos de la tabla APP_TEXT y la vista v_codetext en base a un join entre ambas tablas y la condición v_codetext.&quot;TABLE_ID&quot; = 39 .</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_apptextelement</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los elementos de tipo Texto de las aplicaciónes. Para ello usa los campos de la tabla APP_TEXT y la vista v_codetext en base a un join entre ambas tablas y la condición v_codetext.&quot;TABLE_ID&quot; = 8 
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_codetext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los campos de la tabla TEXT. El valor del campo de la vista &quot;CODE_TEXT&quot; es &quot;TEXT&quot;.&quot;AUDIO_FILE_NAME&quot; si es que el valor
+   de este no es NULL, si es que lo fuera toma el valor de la concatenacion de los campos:     
+   &quot;TEXT&quot;.&quot;TABLE_ID&quot; 
+   &quot;TEXT&quot;.&quot;ELEMENT_KEY&quot;
+   &quot;TEXT&quot;.&quot;LANGUAGE_ID&quot;
+   si es que la combinación de estos no es NULL, el valor tiene la siguiente forma:   
+   &quot;TEXT&quot;.&quot;TABLE_ID&quot; + &quot;_&quot; + &quot;TEXT&quot;.&quot;ELEMENT_KEY&quot; + &quot;_&quot; +&quot;TEXT&quot;.&quot;LANGUAGE_ID&quot; + &quot;.m8&quot;</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_customcodetext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los elementos de codigo que pueden ser customizados por Organización. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 9
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_departmentname</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los nombres de los departamentos. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 12
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionboldquestionary_view</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las expresiones usadas para mostrar las respuesta de cuestionarios
+en negrita. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 17</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionenabled</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para habilitar preguntas. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 1
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionfield</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones especiales para mostrar datos en listados. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 13
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionfilter</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para filtros auxiliares de preguntas. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 11
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionfilterquestion</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las expresiones usadas para filtrar los criterios de busquedas
+basadas en preguntas de un cuestionario. Se basa en la tabla EXPRESSION y en
+&quot;EXPRESSION.&quot;TABLE_ID&quot; = 16</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionfilterquestionary</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de Filtro para cuestionarios. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 8
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionfilterview</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de filtro para la vista definida. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 14
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionformat1</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de formato 1.Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 5
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionformat2</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de formato 2. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 6
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionformat3</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de formato 3. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 7
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionmotd</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista las expresiones de los mensajes del dia (MOTD). Se basa en la tabla
+EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 18
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionnotification</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de las notificaciones. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 4
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionpredresp</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para respuestas predeterminadas Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 2
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionquestionaryfilter</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para los filtros automaticos sin la entrada de data por el usuario. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 12
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionquestionaryvalidate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de validacion de cuestionarios. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 9
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionquestionvalidate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para validacion de las preguntas de los cuestionarios. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 3
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_expressionshowquestion</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones para la visibilidad de las preguntas. Se basa en la tabla EXPRESSION y en &quot;EXPRESSION.&quot;TABLE_ID&quot; = 10
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_geographicareaname</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Nombres de las Areas Geograficas. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 13
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_motdbody</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista el texto usado para el cuerpo del mensaje del dia (MOTD). Se basa en
+la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 55
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_motdtitle</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista el texto usado para el titulo del mensaje del dia (MOTD). Se basa en
+la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 56
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_profilename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Nombres de Profiles. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 15
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_question_user</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Preguntas creadas por el Usuario. Se basa en QUESTION y en la condicion QUESTION.&quot;TYPE&quot;=2
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_questionhelptext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Nombres de las ayudas de las preguntas. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 38
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_questiontext_detshort</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Vistas depreciadas.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_questiontext_list</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Vistas depreciadas.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_questiontext_qst</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Vistas depreciadas.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_table_005_1</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Vistas depreciadas.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textapptext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Configuraciones de los textos definidos para el uso de las aplicaciones. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 39
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textdevicename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista general de los Nombres de los dispositivos. Se basa en la vista &quot;v_codetext&quot; y en &quot;TEXT_TABLE_ID.TABLE_ID&quot; = 24
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textformatdatename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista el formato de fechas disponibles. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 43
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textlanguagename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los nombres de los leguajes permitidos por organización. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 5
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textlistvaluename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los List Values. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 54.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textmenu</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Textos de las opciones de Menu. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 10
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textmenucomment</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los comentarios de los texto de las opciones de los Menus. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 11
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textmenufunction</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Menu Function con sus respectivas descripciones. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 51
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textmenuset</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Menu Set con sus respectivas descripciones. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 50
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textnotificationtemplate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista la relación de los Templates para enviar una notificacion. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 20
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textnotificationtemplatedescription</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista la Descripción de los Templates de las Notificaciones. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 42
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textnotificationtemplatename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Nombres de los Templates de las Notificaciones. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 41
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestion</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Textos de una pregunta. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 17
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestion2</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Comentarios de los Cuestionarios. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 22
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionarycomment</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los campos de la vista v_codetext en base a la condición v_codetext.&quot;TABLE_ID&quot; = 22
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionaryname</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Nombres de los Cuestionarios. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 21
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionaryvalidate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Expresiones de validación para cuestionarios.Se basa en la vista &quot;v_codetext&quot;, y en v_codetext.&quot;TABLE_ID&quot;=26.
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionaryview_loopmessage</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista los mensajes de ingreso de las preguntas en loop en IVR. Se basa en
+la vista v_codetext y v_codetext.&quot;TABLE_ID&quot; = 58
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionaryview_loopmessagepreview</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista los mensajes de revision de las preguntas en loop en IVR. Se basa en
+la vista v_codetext y v_codetext.&quot;TABLE_ID&quot; = 59
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionaryviewname</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Textos para los nombres de una vista. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 37
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestiontextkey</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista los textos para las preguntas de una vista. Se basa en la vista
+v_codetext y v_codetext.&quot;TABLE_ID&quot; = 60
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textquestionvalidate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Condiciones para validacion de preguntas del cuestionario. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 19
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textrefreshvalue</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>  Lista los textos para usarse en las opciones de refresco automatico de
+vistas. Se basa en la vista v_codetext y v_codetext.&quot;TABLE_ID&quot; = 57</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textresponsemandatory</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Textos de validacion para las preguntas cuyas respuestas son obligatoria. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 25
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textresponsequestionary</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los campos de la vista v_codetext en base a la condición v_codetext.&quot;TABLE_ID&quot; = 26
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textresponsetemplate</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Textos para las respuestas cuando se llene un cuestionario. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 29
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textsecurityquestion</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Preguntas de seguridad.Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 16
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textsmsprovidername</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Proveedores de mensajeria celular. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 23
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_texttitlesubmenu</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Titulos para subMenu. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 53
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textvalidresponseelement</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Elementos validos que puede tener una respuesta. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 18
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_textvalidresponsename</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista las Respuestas validas de una pregunta. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 40
+</FONT></PRE>
+</TD>
+</TR>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>v_titletext</FONT></TD>
+<TD ALIGN=LEFT VALIGN=TOP BGCOLOR=#ffffff>
+<PRE><FONT SIZE=2 COLOR=#000000 FACE='Times New Roman'>Lista los Titulos de los Usuarios. Se basa en la vista v_codetext y en v_codetext.&quot;TABLE_ID&quot; = 1
+</FONT></PRE>
+</TD>
+</TR>
+</TABLE>
+<P></P><TABLE CELLPADING=1 BORDER=0 WIDTH=100%>
+<TR>
+<TD ALIGN=LEFT VALIGN=TOP>
+<FONT SIZE=2 COLOR=#800000 FACE='Times New Roman'></FONT></TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

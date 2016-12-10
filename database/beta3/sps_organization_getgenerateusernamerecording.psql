@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION "public"."sps_organization_getgenerateusernamerecording" (integer) RETURNS integer AS'
+DECLARE
+
+pi_intOrganizationKey ALIAS FOR $1;
+
+v_retval text;
+
+BEGIN
+
+Select
+	"GENERATE_USERNAME_RECORDING" INTO v_retval
+From
+	"ORGANIZATION"
+Where
+	"ORGANIZATION_KEY" = pi_intOrganizationKey;
+
+return v_retval;
+
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;

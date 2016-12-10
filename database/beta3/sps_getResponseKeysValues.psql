@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION sps_getresponsekeysvalues("varchar")
+  RETURNS "varchar" AS
+'
+DECLARE
+pi_vchrSQLText ALIAS FOR $1;
+
+response_record RECORD;
+v_comma varchar;
+v_vchrretval varchar;
+
+BEGIN
+v_comma = \',\';
+ 		FOR response_record IN EXECUTE  pi_vchrSQLText LOOP
+ 			v_vchrretval = response_record."ID" || v_comma || response_record."USER_KEY" 
+			|| v_comma || response_record."DEPARTMENT_KEY" || v_comma || response_record."GEOGRAPHIC_AREA_KEY"
+                        || v_comma || response_record."FLAG_LAST";
+ 		END LOOP;
+RETURN v_vchrretval;
+END;
+ '
+  LANGUAGE 'plpgsql' VOLATILE;

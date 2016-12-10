@@ -1,0 +1,307 @@
+DROP FUNCTION fn_securityquestionarylist(int4, int4, int4, int4, int4, int4, int4, "varchar", "varchar", int4, int4, int4, int4);
+
+CREATE OR REPLACE FUNCTION fn_securityquestionarylist(int4, int4, int4, int4, int4, "varchar", "varchar", int4, int4, int4, int4)
+  RETURNS int4 AS
+'
+
+DECLARE
+
+
+
+pi_intResponseKey ALIAS FOR $1;
+
+pi_intUserKey ALIAS FOR $2;
+
+pi_intQuestionaryKey ALIAS FOR $3;
+
+pi_intLevelAdmin ALIAS FOR $4;
+
+pi_intflagreadkeep ALIAS FOR $5;
+
+pi_vchrTableName ALIAS FOR $6;
+
+pi_vchrRowFieldName ALIAS FOR $7;
+
+pi_intQuestionaryType ALIAS FOR $8;
+
+pi_intDepartmentKey ALIAS FOR $9;
+
+pi_intResponseID ALIAS FOR $10;
+
+pi_intGeoAreaKey ALIAS FOR $11;
+
+
+
+v_vchrTracertParents varchar;
+
+
+
+v_intcountval int;
+
+v_intCount int;
+
+v_intCountDepartmentBellow int;
+
+
+
+v_intLevelAdmin int;
+
+v_intResult int;
+
+
+
+v_vchrTableName varchar;
+
+v_vchrRowFieldName varchar;
+
+v_intQuestionaryType int;
+
+v_vchrSQLQuery varchar;
+
+
+
+v_intflagreadkeep int;
+
+
+
+v_intvalueadd int;
+
+v_intevalvalue int;
+
+v_intevalleveladmin int;
+
+
+
+BEGIN
+
+
+
+v_vchrTableName = pi_vchrTableName;
+
+v_vchrRowFieldName = pi_vchrRowFieldName;
+
+v_intQuestionaryType = pi_intQuestionaryType;
+
+
+v_intResult = 0;
+
+v_intCount = 0;
+
+v_vchrSQLQuery = \'\';
+
+
+
+
+
+v_vchrTableName = \'"\' || Upper(v_vchrTableName) || \'"\';
+
+v_vchrRowFieldName = \'"\' || Upper(v_vchrRowFieldName) || \'"\';
+
+
+      v_intevalleveladmin = pi_intLevelAdmin;
+
+      v_intvalueadd = 1;
+
+      v_intevalvalue = pi_intflagreadkeep;
+
+
+    If v_intevalleveladmin = 1 Then/*Global*/
+
+      v_intResult = v_intvalueadd;
+
+    ElsIf v_intevalleveladmin = 2 Then/*Geographic and below*/
+
+
+      if v_intevalvalue = 0 Then
+
+	      v_vchrSQLQuery = \'select "QST_TAB"."TRACERT_PARENTS" from "GEOGRAPHIC_AREA" "QST_TAB" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "USER_INFO_DEPARTMENT" "USR_DEPT"  on "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' and "QST_TAB"."GEOGRAPHIC_AREA_KEY" = \' || pi_intGeoAreaKey;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "DEPARTMENT" "DEPT" ON "DEPT"."DEPARTMENT_KEY" = "USR_DEPT"."DEPARTMENT_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "GEOGRAPHIC_AREA" "GEOAREA" ON "DEPT"."GEOGRAPHIC_AREA_KEY" = "GEOAREA"."GEOGRAPHIC_AREA_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' WHERE "QST_TAB"."TRACERT_PARENTS" like \'\'%/\'\' || cast("GEOAREA"."GEOGRAPHIC_AREA_KEY" as varchar(15)) || \'\'/%\'\'\';
+	
+
+      Else
+	      v_vchrSQLQuery = \'select "QST_TAB"."TRACERT_PARENTS" from \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \'(select "GEOAREA"."GEOGRAPHIC_AREA_KEY","GEOAREA"."TRACERT_PARENTS" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' from \' || v_vchrTableName || \' "QST_TAB" inner join "GEOGRAPHIC_AREA" "GEOAREA" ON \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB"."GEOGRAPHIC_AREA_KEY" = "GEOAREA"."GEOGRAPHIC_AREA_KEY" WHERE \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB"."ID" = \' || pi_intResponseID  ;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \') "QST_TAB" Inner Join "USER_INFO_DEPARTMENT" "USR_DEPT"  on "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "DEPARTMENT" "DEPT" ON "DEPT"."DEPARTMENT_KEY" = "USR_DEPT"."DEPARTMENT_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "GEOGRAPHIC_AREA" "GEOAREA" ON "DEPT"."GEOGRAPHIC_AREA_KEY" = "GEOAREA"."GEOGRAPHIC_AREA_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' WHERE "QST_TAB"."TRACERT_PARENTS" like \'\'%/\'\' || cast("GEOAREA"."GEOGRAPHIC_AREA_KEY" as varchar(15)) || \'\'/%\'\'\';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' AND "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+      End If;
+
+      EXECUTE v_vchrSQLQuery;
+
+
+
+      GET DIAGNOSTICS v_intcountval = ROW_COUNT;
+
+
+
+      If v_intcountval > 0 Then
+
+        v_intResult = v_intvalueadd;
+
+      End If;
+
+
+
+    ElsIf v_intevalleveladmin = 3 Then /*Department*/
+
+
+
+      if v_intevalvalue = 0 Then
+	      v_vchrSQLQuery = \'select "USR_DEPT"."DEPARTMENT_KEY" from \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "USER_INFO_DEPARTMENT" "USR_DEPT" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' where "USR_DEPT"."DEPARTMENT_KEY" = \'  || pi_intDepartmentKey;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' AND "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+
+      Else
+	      v_vchrSQLQuery = \'select "DEPT"."DEPARTMENT_KEY" from \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \'(select "QST_TAB"."DEPARTMENT_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' from \' || v_vchrTableName || \' "QST_TAB" where \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB"."ID" =  \' || pi_intResponseID ;
+
+	      /*v_vchrSQLQuery = v_vchrSQLQuery || \' and "QST_TAB"."FLAG_LAST" = 1\';*/
+
+	      v_vchrSQLQuery = v_vchrSQLQuery || \') "QST_TAB" , "USER_INFO_DEPARTMENT" "USR_DEPT" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' Inner Join "DEPARTMENT" "DEPT" ON "DEPT"."DEPARTMENT_KEY" = "USR_DEPT"."DEPARTMENT_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' WHERE "QST_TAB"."DEPARTMENT_KEY" = "USR_DEPT"."DEPARTMENT_KEY" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' AND "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+
+      End If;
+
+
+      EXECUTE v_vchrSQLQuery;
+
+      GET DIAGNOSTICS v_intcountval = ROW_COUNT;
+
+
+
+      If v_intcountval > 0 Then
+
+        v_intResult = v_intvalueadd;
+
+      End If;
+
+
+
+    ElsIf v_intevalleveladmin = 4 Then /*Department and bellow*/
+
+
+      if v_intevalvalue = 0 Then
+	      v_vchrSQLQuery = \'select "USR_DEPT"."DEPARTMENT_KEY" from \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "DEPARTMENT"  \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB" Inner Join "USER_INFO_DEPARTMENT" "USR_DEPT"  on "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+	      
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' and "QST_TAB"."DEPARTMENT_KEY" = \' || pi_intDepartmentKey;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' and "QST_TAB"."TRACERT_PARENTS" like \'\'%/\'\' || cast("USR_DEPT"."DEPARTMENT_KEY" as varchar(15)) || \'\'/%\'\'\';
+
+      Else
+	      v_vchrSQLQuery = \'select "USR_DEPT"."DEPARTMENT_KEY" from \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \'(select "DEPT"."DEPARTMENT_KEY","DEPT"."TRACERT_PARENTS" \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' from \' || v_vchrTableName || \' "QST_TAB" inner join "DEPARTMENT" "DEPT" ON \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB"."DEPARTMENT_KEY" = "DEPT"."DEPARTMENT_KEY" WHERE \';
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' "QST_TAB"."ID" = \' || pi_intResponseID  ;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \') "QST_TAB" Inner Join "USER_INFO_DEPARTMENT" "USR_DEPT"  on "USR_DEPT"."USER_KEY" = \' || pi_intUserKey;
+	
+	      v_vchrSQLQuery = v_vchrSQLQuery || \' WHERE "QST_TAB"."TRACERT_PARENTS" like \'\'%/\'\' || cast("USR_DEPT"."DEPARTMENT_KEY" as varchar(15)) || \'\'/%\'\'\';
+
+      End If;
+
+      EXECUTE v_vchrSQLQuery;
+
+      GET DIAGNOSTICS v_intcountval = ROW_COUNT;
+
+
+
+      If v_intcountval > 0 Then
+
+        v_intResult = v_intvalueadd;
+
+      End If;
+
+
+
+    ElsIf v_intevalleveladmin = 5 Then /*Self*/
+
+
+
+      v_vchrSQLQuery = v_vchrSQLQuery || \'select "DATE_SEND" \';
+
+      v_vchrSQLQuery = v_vchrSQLQuery || \' from \' || v_vchrTableName;
+
+      v_vchrSQLQuery = v_vchrSQLQuery || \' WHERE "USER_KEY" = \' || pi_intUserKey;
+
+      v_vchrSQLQuery = v_vchrSQLQuery || \' and "ID" = \' || pi_intResponseID  ;
+
+
+      EXECUTE v_vchrSQLQuery;
+
+      GET DIAGNOSTICS v_intcountval = ROW_COUNT;
+
+
+
+      If v_intcountval > 0 Then
+
+        v_intResult = v_intvalueadd;
+
+      End If;
+
+
+
+    END IF;
+
+
+return v_intResult;
+
+
+
+END
+
+
+
+'
+  LANGUAGE 'plpgsql' VOLATILE;
+
+
+
+
+
+

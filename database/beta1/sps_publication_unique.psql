@@ -1,0 +1,57 @@
+Select DropUDFTypeCascadeIfExists('sps_publication_unique');
+
+CREATE TYPE "public"."udf_sps_publication_unique" AS (
+  "publication_key" INTEGER,
+  "publication_id" INTEGER,
+  "title" VARCHAR(100),
+  "description" VARCHAR(7000),
+  "organization_key" INTEGER,
+  "flag_line" INTEGER,
+  "create_date" DATE,
+  "create_user_key" INTEGER,
+  "user_name" VARCHAR(100),
+  "position" INTEGER,
+  "status" INTEGER
+);
+
+CREATE OR REPLACE FUNCTION "public"."sps_publication_unique" (integer) RETURNS SETOF "public"."udf_sps_publication_unique" AS'
+DECLARE
+
+pi_intPublicationKey ALIAS FOR $1;
+
+
+v_retval udf_sps_publication_unique%ROWTYPE;
+
+BEGIN
+
+
+FOR v_retval IN
+
+SELECT
+	"PUB"."PUBLICATION_KEY",
+	"PUB"."PUBLICATION_ID",
+	"PUB"."TITLE",
+	"PUB"."DESCRIPTION",
+	"PUB"."ORGANIZATION_KEY",
+	"PUB"."FLAG_LINE",
+	"PUB"."CREATE_DATE",
+	"PUB"."CREATE_USER_KEY",
+    	coalesce("USRINF"."FIRST_NAME",'''') || '' '' || coalesce("USRINF"."LAST_NAME",'''') as "USER_NAME"	,
+    "PUB"."POSITION",
+    "PUB"."STATUS"
+from
+	"PUBLICATION" "PUB"
+	Left join "USER_INFO" "USRINF"
+	ON "PUB"."CREATE_USER_KEY" = "USRINF"."USER_KEY"
+where
+	"PUB"."PUBLICATION_KEY" = pi_intPublicationKey
+Order by
+	"PUB"."PUBLICATION_KEY" asc
+LOOP
+  RETURN NEXT v_retval;
+END LOOP;
+
+RETURN;
+
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;

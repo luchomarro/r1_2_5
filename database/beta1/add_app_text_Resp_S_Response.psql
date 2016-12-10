@@ -1,0 +1,46 @@
+
+-- SELECT * FROM "APP_TEXT_ELEMENT" WHERE "APP_TEXT_ID" = 95; 
+
+CREATE OR REPLACE FUNCTION "public"."add_app_text_Resp_S_Response" () RETURNS "pg_catalog"."void" AS'
+DECLARE
+
+v_intapptextid int;
+v_intOrganizationKey int;
+v_intTableID int;
+
+v_intapptextkey int;
+v_intapptextelemkey int;
+
+
+
+BEGIN
+
+v_intapptextid = 95;
+v_intOrganizationKey = 34;
+v_intTableID = 8;
+
+
+INSERT INTO "APP_TEXT_ELEMENT"("APP_TEXT_ID","APP_TEXT_ELEMENT_ID","ORGANIZATION_KEY","COMMENT")
+VALUES(v_intapptextid,3,v_intOrganizationKey,''Pagina para vista para cuestionarios tipo reportes'');
+
+v_intapptextelemkey = currval(''"APP_TEXT_ELEMENT_APP_TEXT_ELEMENT_KEY_seq"'');
+
+
+INSERT INTO "TEXT"("TABLE_ID","ELEMENT_KEY","LANGUAGE_ID","CONTENT_TEXT","HAS_AUDIO")
+VALUES(v_intTableID,v_intapptextelemkey,2,''Notes'',0);
+
+INSERT INTO "TEXT"("TABLE_ID","ELEMENT_KEY","LANGUAGE_ID","CONTENT_TEXT","HAS_AUDIO")
+VALUES(v_intTableID,v_intapptextelemkey,1,''Notas'',0);
+
+
+
+RETURN;
+END
+'LANGUAGE 'plpgsql' VOLATILE CALLED ON NULL INPUT SECURITY INVOKER;	
+
+
+Select "public"."add_app_text_Resp_S_Response" ();
+
+
+drop FUNCTION "public"."add_app_text_Resp_S_Response" ();
+
